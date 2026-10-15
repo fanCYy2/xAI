@@ -1,0 +1,455 @@
+<title>10.16组会</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;800&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: reading column (~68ch) with a sticky outline on wide screens; each of the four explanation forms carries its own hue, used on its chip and section rule. */
+:root {
+  --bg: #f7f8f6;
+  --surface: #ffffff;
+  --ink: #1d2422;
+  --muted: #5b6662;
+  --line: #dde2df;
+  --accent: #1f6b5c;
+  --accent-soft: #e3efec;
+  --tip-bg: #1d2422;
+  --tip-fg: #f2f5f3;
+  --catA: #b5562f;
+  --catB: #2f6fb5;
+  --catC: #7a4fb0;
+  --catD: #8a7a1f;
+  --term-line: #1f6b5c;
+  --font-display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141917; --surface: #1b2220; --ink: #e4ebe8; --muted: #9aa7a2; --line: #2c3532;
+    --accent: #6cc4ad; --accent-soft: #1f2f2b; --tip-bg: #e4ebe8; --tip-fg: #141917;
+    --catA: #e08a63; --catB: #7aa9e0; --catC: #b493e0; --catD: #d1bf5a; --term-line: #6cc4ad;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141917; --surface: #1b2220; --ink: #e4ebe8; --muted: #9aa7a2; --line: #2c3532;
+  --accent: #6cc4ad; --accent-soft: #1f2f2b; --tip-bg: #e4ebe8; --tip-fg: #141917;
+  --catA: #e08a63; --catB: #7aa9e0; --catC: #b493e0; --catD: #d1bf5a; --term-line: #6cc4ad;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.8;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap {
+  max-width: 1120px; margin: 0 auto; padding-block: 48px 96px;
+  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 56px;
+}
+@media (max-width: 860px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: 28px 64px; } nav.toc { display: none; } }
+
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 32px); align-self: start; font-size: 13.5px; line-height: 1.6; }
+nav.toc .label { font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+nav.toc a { color: var(--muted); text-decoration: none; display: flex; gap: 8px; align-items: baseline; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--ink); }
+nav.toc .sub { padding-left: 22px; font-size: 12.5px; }
+
+main { min-width: 0; max-width: 72ch; }
+header.top { border-bottom: 1px solid var(--line); padding-bottom: 28px; margin-bottom: 40px; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 5vw, 42px); line-height: 1.25; margin: 8px 0 12px; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; }
+.hint { margin-top: 16px; font-size: 13.5px; color: var(--muted); }
+
+h2 { font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 1.35; margin: 64px 0 16px; text-wrap: balance; scroll-margin-top: 24px; }
+h3 { font-size: 18px; font-weight: 700; margin: 36px 0 8px; scroll-margin-top: 24px; }
+h4 { font-size: 15px; font-weight: 700; margin: 24px 0 6px; color: var(--ink); }
+p { margin: 0 0 14px; }
+ul, ol { margin: 0 0 14px; padding-left: 1.3em; }
+li { margin-bottom: 6px; }
+li::marker { color: var(--muted); }
+strong { font-weight: 700; }
+
+/* Taxonomy blocks */
+.tax { display: grid; gap: 14px; margin: 18px 0 8px; }
+.tax-item { border-top: 1px solid var(--line); padding-top: 14px; }
+.tax-item .src { font-size: 12px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+.pairs { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 18px; margin: 8px 0 14px; }
+.pairs dt { font-weight: 700; }
+.pairs dd { margin: 0; color: var(--ink); }
+@media (max-width: 520px) { .pairs { grid-template-columns: minmax(0, 1fr); gap: 2px; } .pairs dd { margin-bottom: 10px; } }
+
+/* My taxonomy */
+.mine { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 24px; margin: 24px 0; }
+.mine h3 { margin-top: 0; }
+.forms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 14px 0 18px; }
+@media (max-width: 520px) { .forms { grid-template-columns: minmax(0, 1fr); } }
+.form { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 8px; background: var(--bg); }
+.form .what { font-weight: 700; }
+.form .looks { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+.chip { flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 6px; font-family: var(--font-mono); font-weight: 600; font-size: 14px; color: var(--surface); }
+.chip.A { background: var(--catA); } .chip.B { background: var(--catB); } .chip.C { background: var(--catC); } .chip.D { background: var(--catD); }
+.why { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 0; }
+
+/* Category sections */
+.cat { scroll-margin-top: 24px; }
+.cat-head { display: flex; gap: 14px; align-items: center; margin: 72px 0 8px; padding-bottom: 12px; border-bottom: 2px solid var(--c); }
+.cat-head h2 { margin: 0; }
+.cat-head .chip { width: 36px; height: 36px; font-size: 17px; }
+.cat.A { --c: var(--catA); } .cat.B { --c: var(--catB); } .cat.C { --c: var(--catC); } .cat.D { --c: var(--catD); }
+
+.paper { margin-top: 28px; }
+.paper .title { font-family: var(--font-display); font-size: 20px; font-weight: 600; line-height: 1.45; margin: 0 0 6px; text-wrap: balance; }
+.venue { display: inline-block; font-family: var(--font-mono); font-size: 12.5px; padding: 1px 8px; border-radius: 4px; border: 1px solid var(--c); color: var(--c); margin-bottom: 12px; }
+.tbd { color: var(--muted); font-style: italic; }
+
+.k { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--c, var(--accent)); font-weight: 700; margin: 26px 0 8px; }
+
+figure { margin: 18px 0 22px; }
+figure img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+
+.steps { list-style: none; padding: 0; counter-reset: s; display: grid; gap: 10px; }
+.steps > li { counter-increment: s; position: relative; padding-left: 36px; margin: 0; }
+.steps > li::before { content: counter(s); position: absolute; left: 0; top: 3px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+
+.formula { font-family: var(--font-mono); font-size: 14.5px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin: 8px 0 14px; overflow-x: auto; white-space: nowrap; }
+.formula .name { color: var(--muted); margin-right: 10px; }
+code, .m { font-family: var(--font-mono); font-size: .9em; }
+
+.dims { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 12px 0 16px; }
+.dim { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.55; }
+.dim b { display: block; font-size: 14.5px; margin-bottom: 2px; }
+.dim .en { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+
+.swatch { display: inline-block; padding: 0 6px; border-radius: 3px; color: #1d2422; font-size: .92em; }
+.sw-r { background: #e8a194; } .sw-g { background: #a9c7a6; } .sw-b { background: #a5c8e6; }
+
+/* Summary table */
+.tablewrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; line-height: 1.6; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; letter-spacing: .08em; color: var(--muted); font-weight: 700; }
+tr:last-child td { border-bottom: 0; }
+td .chip { width: 22px; height: 22px; font-size: 12px; margin-right: 6px; vertical-align: -5px; }
+
+/* Hover terms */
+.term { border-bottom: 1.5px dotted var(--term-line); cursor: help; text-decoration: none; }
+.term:hover, .term:focus-visible { background: var(--accent-soft); outline: none; border-radius: 2px; }
+#tip {
+  position: fixed; z-index: 50; max-width: min(340px, calc(100vw - 32px));
+  background: var(--tip-bg); color: var(--tip-fg); border-radius: 8px;
+  padding: 10px 13px; font-size: 13.5px; line-height: 1.6;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18); pointer-events: none;
+  opacity: 0; transform: translateY(4px); transition: opacity .12s, transform .12s;
+}
+#tip.on { opacity: 1; transform: none; }
+#tip .tt { font-weight: 700; display: block; margin-bottom: 2px; }
+@media (prefers-reduced-motion: reduce) { #tip { transition: none; } }
+
+a { color: var(--accent); }
+footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <nav class="toc" aria-label="目录">
+    <div class="label">目录</div>
+    <ol>
+      <li><a href="#taxonomy">已有分类方法</a></li>
+      <li><a href="#mine">我的分类与理由</a></li>
+      <li><a href="#catA"><span class="chip A" style="width:18px;height:18px;font-size:11px">A</span>特征归因</a></li>
+      <li class="sub"><a href="#a1">FMM · AAAI 2024</a></li>
+      <li><a href="#catB"><span class="chip B" style="width:18px;height:18px;font-size:11px">B</span>基于样例</a></li>
+      <li class="sub"><a href="#b1">ExaGPT · ACL 2026</a></li>
+      <li><a href="#catC"><span class="chip C" style="width:18px;height:18px;font-size:11px">C</span>自然语言解释</a></li>
+      <li class="sub"><a href="#c1">DET · EMNLP 2025</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="top">
+      <div class="eyebrow">文本分类模型的可解释性 · 方法分类与评价方式</div>
+      <h1>10.16组会</h1>
+    </header>
+
+    <!-- ============ 已有分类 ============ -->
+    <h2 id="taxonomy">找到的一些分类方法</h2>
+
+    <div class="tax">
+      <div class="tax-item">
+        <div class="src">分类方式 1 · 按解释与模型的关系</div>
+        <h4>事前 vs 事后</h4>
+        <dl class="pairs">
+          <dt><span class="term" tabindex="0" data-title="Ante hoc" data-tip="“事前”解释：模型本身就是可解释的，预测和解释由同一个模型给出，不需要额外的解释器。">事前 ante hoc</span></dt>
+          <dd>预测和解释用同一个模型，模型本身可解释，比如看线性回归的权重或注意力权重。</dd>
+          <dt><span class="term" tabindex="0" data-title="Post hoc" data-tip="“事后”解释：模型训练好之后，再用另一个独立方法去解释它的预测。原模型不需要改动。">事后 post hoc</span></dt>
+          <dd>先用一个模型预测，再用独立的方法解释它，好处是不用动原模型。该文主要研究这一类。</dd>
+        </dl>
+        <h4>模型无关 vs 模型特定</h4>
+        <dl class="pairs">
+          <dt><span class="term" tabindex="0" data-title="Model-agnostic" data-tip="只把模型当黑盒：只需要“输入 → 输出”，不需要知道模型内部结构。例如 LIME、SHAP。">模型无关</span></dt>
+          <dd>只需要输入和预测结果，能套在任何<span class="term" tabindex="0" data-title="黑盒模型" data-tip="内部计算过程对使用者不可见、难以直接理解的模型，例如大型神经网络。">黑盒模型</span>上。</dd>
+          <dt><span class="term" tabindex="0" data-title="Model-specific" data-tip="依赖模型内部信息（梯度、权重、注意力等），因此只适用于特定结构的模型。">模型特定</span></dt>
+          <dd>要用到模型内部结构，比如<span class="term" tabindex="0" data-title="梯度 Gradient" data-tip="输出对输入的偏导数。直观上表示“输入稍微变一点，输出会变多少”，常被当作输入重要性的信号。">梯度</span>、权重，只适用于某类模型。</dd>
+        </dl>
+        <h4>局部 / 群组 / 全局</h4>
+        <dl class="pairs">
+          <dt>局部</dt><dd>解释单条样本为什么被这样预测。</dd>
+          <dt>群组</dt><dd>解释一部分样本，或决策空间里的某个区域。</dd>
+          <dt>全局</dt><dd>解释整个模型的行为。</dd>
+        </dl>
+      </div>
+
+      <div class="tax-item">
+        <div class="src">分类方式 2 · 按解释分类器输出的手段</div>
+        <p>解释分类器的输出是最常见的做法：在输入文本和输出标签之间建立可靠的关联，确定每个元素（单词或<span class="term" tabindex="0" data-title="Token" data-tip="模型处理文本的最小单位。可能是一个词、一个子词片段或一个字符，由分词器决定。">token</span>）对最终预测贡献了多少。据此分为四种，彼此并不互斥：</p>
+        <ol>
+          <li><strong>特征重要性分数</strong>：给每个词打一个贡献分数，比如梯度或<span class="term" tabindex="0" data-title="积分梯度 Integrated Gradients" data-tip="从一个“基线输入”（如全零向量）沿直线走到真实输入，把沿途的梯度累加起来，作为每个特征的贡献。能缓解普通梯度的饱和问题。">积分梯度</span>。</li>
+          <li><strong>基于扰动</strong>：改动或删除输入，看预测怎么变。</li>
+          <li><strong>简化式</strong>：用一个简单模型去近似复杂模型（如<span class="term" tabindex="0" data-title="LIME" data-tip="在某条样本附近随机扰动生成大量样本，用一个简单的线性模型去拟合黑盒模型在这附近的行为，用线性模型的权重作为解释。">LIME</span>）。</li>
+          <li><strong><span class="term" tabindex="0" data-title="Rationale 理由" data-tip="一段人能直接读懂的文字，用来说明模型为什么这样判断。可以是从原文抽出的关键句（抽取式），也可以是模型生成的一句话（生成式）。">理由解释 rationale</span></strong>：直接给出一段人能读懂的文字，比如原文里的关键句，或生成的一句话。</li>
+        </ol>
+      </div>
+
+      <div class="tax-item">
+        <div class="src">分类方式 3 · 按解释的技术路线</div>
+        <h4>1. 基于相似度</h4>
+        <p>在模型学到的<span class="term" tabindex="0" data-title="表示空间 Representation space" data-tip="模型把输入编码成向量后所在的空间。语义相近的输入在这个空间里通常距离也近。">表示空间</span>里找与测试样本最相似的训练样本或概念作为解释。缺点是它只展示推理的结果，不展示推理的过程。</p>
+
+        <h4>2. 模型内部结构分析</h4>
+        <p><strong>神经元分析</strong>：例如在字符级<span class="term" tabindex="0" data-title="LSTM" data-tip="长短期记忆网络，一种带“门控”的循环神经网络，能按顺序读文本并记住较长距离的信息。">LSTM</span>中发现专门在引号内激活的神经元，或对否定、强调等结构敏感的神经元。</p>
+        <p><strong>注意力分析</strong>：围绕“注意力是不是解释”有长期争论。</p>
+        <ul>
+          <li>Jain &amp; Wallace 构造出差异很大、但预测不变的对抗性注意力分布。</li>
+          <li>Wiegreffe &amp; Pinter 反驳：那是人为构造的，不是训练得到的。</li>
+          <li>Pruthi 等人又证明可以<em>训练</em>出具有欺骗性的注意力。</li>
+          <li>在机器翻译的<span class="term" tabindex="0" data-title="编码器-解码器 Encoder-Decoder" data-tip="一种序列到序列结构：编码器读入源句子，解码器逐词生成目标句子，二者之间用注意力连接。">编码器-解码器</span>注意力上，修改注意力确实会显著影响输出。</li>
+        </ul>
+        <p>注意力不<span class="term" tabindex="0" data-title="忠实 Faithful" data-tip="解释是否真实反映了模型内部的推理过程。一个“看起来合理”的解释未必忠实。">忠实</span>的三个原因：<strong>信息混合</strong>（隐藏状态已融合了上下文）、<strong>局部性</strong>（只看单层、单位置）、<strong>本质上缺乏因果性</strong>。对应的改进有正则化、<span class="term" tabindex="0" data-title="Attention Rollout / Flow" data-tip="把多层注意力矩阵逐层相乘（Rollout）或当作网络流求解（Flow），估计信息从输入到输出的整体流动，而不是只看某一层。">Attention Rollout / Flow</span> 等全局信息流方法，以及与梯度方法结合。</p>
+
+        <h4>3. 基于反向传播</h4>
+        <dl class="pairs">
+          <dt>简单梯度</dt><dd>存在<span class="term" tabindex="0" data-title="饱和问题" data-tip="当激活函数进入平坦区，梯度接近 0，即使某个输入很重要，梯度也显示不出来。">饱和问题</span>，且只衡量“响应度”而非“贡献”。</dd>
+          <dt>Gradient × Input</dt><dd>降低视觉噪声，但违反<span class="term" tabindex="0" data-title="输入敏感性 Sensitivity" data-tip="归因方法应满足的公理：如果某个特征的改变会让输出改变，那么它应该得到非零的归因分数。">输入敏感性</span>。</dd>
+          <dt>积分梯度</dt><dd>引入<span class="term" tabindex="0" data-title="基线 Baseline" data-tip="积分梯度里的“参考输入”，代表“没有信息”的状态，例如全零嵌入或全 [MASK] 的句子。">基线</span>，满足输入敏感性，但视觉上较嘈杂。</dd>
+          <dt>SmoothGrad</dt><dd>对输入加噪声后取平均来去噪，但只评估了可读性。</dd>
+        </dl>
+
+        <h4>4. <span class="term" tabindex="0" data-title="反事实干预 Counterfactual" data-tip="来自因果推断的思路：“如果这个因素不存在，结果会怎样？”通过实际擦除或改动它，观察预测的变化。">反事实干预</span></h4>
+        <p>擦除或扰动某个因素，观察预测变化，思想来源于因果推断。可以干预输入，也可以干预模型的内部表示。</p>
+
+        <h4>5. 自解释模型</h4>
+        <ul>
+          <li><strong>可解释架构</strong>：如<span class="term" tabindex="0" data-title="神经模块网络 NMN" data-tip="把一个问题解析成若干可学习“模块”（如 find、count、compare）组成的程序，再依次执行。模块名字看起来可解释，但学到的实际行为不一定和名字一致。">神经模块网络</span>，把问题解析成可学习模块组成的程序。但模块的实际行为未必符合其命名，加中间监督又会牺牲准确率。</li>
+          <li><strong>生成解释</strong>：模型内部可能仍是黑盒，但额外生成解释，常用人工写的解释作为训练信号。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============ 我的分类 ============ -->
+    <section class="mine" id="mine">
+      <h3>我的分类：按人看到的解释形态</h3>
+      <div class="forms">
+        <div class="form"><span class="chip A">A</span><div><div class="what">特征归因</div><div class="looks">一段带高亮的文本，每个词有一个重要性分数</div></div></div>
+        <div class="form"><span class="chip B">B</span><div><div class="what">基于样例</div><div class="looks">几个与输入相似的样本或片段</div></div></div>
+        <div class="form"><span class="chip C">C</span><div><div class="what">自然语言解释</div><div class="looks">一句或一段人能直接读的理由</div></div></div>
+        <div class="form"><span class="chip D">D</span><div><div class="what">概念 / 规则</div><div class="looks">人能理解的概念激活值或决策规则</div></div></div>
+      </div>
+      <p class="why"><strong>原因：</strong>我们想设计实验，让人判断哪种解释更好。人看到的是解释的形态：一段高亮文本、几个相似样本、一句自然语言理由，或一个反事实改写。形态不同，实验范式和评价指标就完全不同，所以按输出形式分大类。</p>
+    </section>
+
+    <!-- ============ A ============ -->
+    <section class="cat A" id="catA">
+      <div class="cat-head"><span class="chip A">A</span><h2>特征归因</h2></div>
+
+      <article class="paper" id="a1">
+        <p class="title">Learning Robust Rationales for Model Explainability: A Guidance-Based Approach</p>
+        <span class="venue">AAAI 2024</span>
+
+        <div class="k">背景</div>
+        <p>NLP 里常用<span class="term" tabindex="0" data-title="重要性度量 Importance Measure (IM)" data-tip="给输入里每个 token 打一个分数，表示它对预测有多重要。梯度、积分梯度、Leave-one-out 都属于这一类。">重要性度量（IM）</span>来解释模型：给每个输入 token 打分，说明它对预测有多重要。常见的有梯度、积分梯度、<span class="term" tabindex="0" data-title="Leave-one-out" data-tip="每次删掉一个 token，看模型输出变化多少，变化越大说明这个 token 越重要。">Leave-one-out</span> 等。</p>
+        <p>问题是这些解释经常看起来有道理，实际上是错的，有时甚至不比随机挑 token 强。所以需要衡量解释的<strong>忠实度（faithfulness）</strong>：解释是否真实反映了模型的推理过程（Jacovi &amp; Goldberg, 2020）。</p>
+        <ul>
+          <li>难点是没有标准答案，只能借助代理指标。最常用的是<span class="term" tabindex="0" data-title="擦除指标 Erasure metric" data-tip="把解释认为重要的 token 删掉或遮挡，看模型性能下降多少。真正重要的 token 被遮挡后，性能应比遮挡随机 token 下降得更多。">擦除指标</span>（Samek 等, 2017）：真正重要的 token 被遮挡后，性能下降应比遮挡随机 token 更明显。</li>
+          <li>但遮挡会制造<span class="term" tabindex="0" data-title="分布外 OOD" data-tip="Out-of-Distribution：输入和训练数据的分布不一样。比如模型训练时从没见过大量 [MASK]，遮挡后的句子对它来说就是“没见过的输入”，性能下降可能只是因为输入很奇怪，而不是因为删掉了重要信息。">分布外（OOD）</span>输入。以往的补救是遮挡后重训模型（<span class="term" tabindex="0" data-title="ROAR" data-tip="RemOve And Retrain：按解释删除特征后，在删除后的数据上重新训练模型，再看性能。避免了 OOD，但要反复重训，而且评估的已经不是原来的模型。">ROAR</span>），代价是计算昂贵、泄露金标签，而且被测的已不是原模型。</li>
+        </ul>
+
+        <div class="k">贡献</div>
+        <ol>
+          <li>提出<strong>内在可测忠实度模型（<span class="term" tabindex="0" data-title="FMM" data-tip="Faithfulness Measurable Model：模型本身被训练成“遮挡任意 token 都不会 OOD”，因此可以直接用擦除法测量忠实度。它不保证给出解释，只保证解释可以被测量。">FMM</span>）</strong>。思路从“设计一个对所有模型通用的评估方法”转向“让模型本身天生支持忠实度测量”。它不同于内在可解释模型：FMM 不保证解释存在，但提供了测量手段。</li>
+          <li><strong>掩码微调（masked fine-tuning）</strong>：用一种简单的微调方式，让任意比例的 mask 都成为分布内输入，同时不损失正常性能。</li>
+        </ol>
+
+        <div class="k">方法</div>
+        <figure>
+          <img src="paper1.png" alt="论文 Figure 1：(a) 掩码微调的训练损失曲线和样例；(b) 用嵌入的累积分布函数做分布内验证；(c) 按解释与随机遮挡的性能曲线对比。">
+          <figcaption>Figure 1。(a) 掩码微调；(b) 分布内验证；(c) 忠实度指标，两条曲线之间的面积越大，解释越忠实。</figcaption>
+        </figure>
+
+        <h4>(a) 掩码微调</h4>
+        <ul>
+          <li>每个<span class="term" tabindex="0" data-title="Mini-batch" data-tip="训练时每次送进模型、用来计算一次梯度更新的一小批样本。">mini-batch</span>里一半样本保持原样，用来维持正常的无 mask 性能。</li>
+          <li>另一半的每条样本先从 <span class="m">U(0,1)</span> 采样一个掩码率 <span class="m">r</span>，再让每个 token 以概率 <span class="m">r</span> 被替换成 <span class="term" tabindex="0" data-title="[MASK]" data-tip="BERT 类模型词表里的特殊 token，表示“这里的词被遮住了”。">[MASK]</span>。这样 0% 到 100% 的各种比例和组合都会出现。</li>
+          <li>验证集复制成两份，一份不 mask、一份随机 mask，用来选最优<span class="term" tabindex="0" data-title="Epoch" data-tip="把整个训练集完整过一遍称为一个 epoch。">epoch</span>。</li>
+        </ul>
+
+        <h4>(b) 分布内验证</h4>
+        <p>对输入句子算一个<span class="term" tabindex="0" data-title="p 值" data-tip="在“该输入属于训练分布”的假设下，观察到当前或更极端情况的概率。p 值很小，说明这个输入很可能是 OOD。">p 值</span>，用统计检验确认被遮挡后的输入没有 OOD。具体做法是用遮挡后的验证集的模型嵌入构造<span class="term" tabindex="0" data-title="CDF 累积分布函数" data-tip="对某个值 x，CDF(x) 表示数据中小于等于 x 的比例。图 (b) 中落在两端红色区域的嵌入值被认为是异常的。">累积分布函数（CDF）</span>，再检查测试样本是否落在合理范围内。</p>
+
+        <h4>(c) 忠实度指标</h4>
+        <ol class="steps">
+          <li>对输入计算 IM，mask 掉最重要的 10% token。</li>
+          <li>在已 mask 的输入上<strong>重新</strong>计算 IM，再 mask 掉新的最重要的 10%。</li>
+          <li>重复直到 100%，记录每一步的模型性能，得到一条曲线。</li>
+          <li>用随机解释跑同样流程，得到随机基线曲线。</li>
+        </ol>
+
+        <div class="k">怎么衡量可解释性</div>
+        <p><strong>定性：看曲线</strong>（论文 Figure 5 / 附录 K）。横轴是 mask 比例，纵轴是模型性能。IM 曲线压在随机曲线下方，就说明解释忠实。</p>
+        <p><strong>定量：ACU 与 RACU</strong>（公式 3，Figure 6）。</p>
+        <p><span class="term" tabindex="0" data-title="ACU" data-tip="Area between Curves：IM 曲线和随机曲线之间的面积。面积越大，说明按解释遮挡比随机遮挡伤害更大，解释越忠实。">ACU</span>：IM 曲线与随机曲线之间的面积，用<span class="term" tabindex="0" data-title="梯形法" data-tip="数值积分方法：把曲线下的面积切成一个个梯形，逐个求面积再相加。">梯形法</span>累加。</p>
+        <div class="formula"><span class="name">ACU =</span>Σ ½·Δx<sub>i</sub>·(Δp<sub>i</sub> + Δp<sub>i+1</sub>)，&nbsp; Δp<sub>i</sub> = b<sub>i</sub> − p<sub>i</sub>（随机曲线 − IM 曲线）</div>
+        <p><span class="term" tabindex="0" data-title="RACU" data-tip="Relative ACU：把 ACU 除以“理论最优解释”能得到的面积，归一化到 0–1 之间，方便跨数据集、跨模型比较。">RACU</span>：用“理论最优解释”归一化。理论最优解释指 mask 第一步就把性能打到 100% mask 的水平；分母是随机曲线与 100% mask 性能水平线之间的面积。</p>
+        <div class="formula"><span class="name">RACU =</span>ACU / Σ ½·Δx<sub>i</sub>·(Δb<sub>i</sub> + Δb<sub>i+1</sub>)，&nbsp; Δb<sub>i</sub> = b<sub>i</sub> − b<sub>I</sub></div>
+      </article>
+    </section>
+
+    <!-- ============ B ============ -->
+    <section class="cat B" id="catB">
+      <div class="cat-head"><span class="chip B">B</span><h2>基于样例</h2></div>
+
+      <article class="paper" id="b1">
+        <p class="title">ExaGPT: Example-Based Machine-Generated Text Detection for Human Interpretability</p>
+        <span class="venue">ACL 2026</span>
+
+        <div class="k">动机</div>
+        <p>人在核实一段文本是人写的还是<span class="term" tabindex="0" data-title="LLM" data-tip="大语言模型（Large Language Model），如 GPT、Claude、Llama。">LLM</span>生成的时候，会直觉地看它和哪一方共享更多相似片段。现有的可解释检测器没有和这一人类决策过程对齐，也给不出用户容易理解的证据。ExaGPT 就是为了弥合这个差距。</p>
+
+        <div class="k">贡献</div>
+        <ol>
+          <li>提出 ExaGPT，一种基于示例的机器生成文本检测方法。</li>
+          <li>设计了直接衡量可解释性的人工评估。</li>
+        </ol>
+
+        <div class="k">方法</div>
+        <figure>
+          <img src="paper2.png" alt="ExaGPT 总览：目标文本被切成 n-gram 片段，经过片段打分和片段选择，每个片段从数据库检索 k 个近邻作为证据，最后根据平均预测分数判定是人写还是机器生成。">
+          <figcaption>Figure 2。ExaGPT 总览：看目标文本与数据库里人写文本、LLM 文本哪一方共享更多相似片段。</figcaption>
+        </figure>
+        <p>先把输入文本枚举成长度 1–20 的<span class="term" tabindex="0" data-title="n-gram" data-tip="文本中连续的 n 个 token 组成的片段。例如 “the electoral college” 是一个 3-gram。">n-gram</span>片段。</p>
+        <h4>阶段 1：片段打分</h4>
+        <p>每个片段用<span class="term" tabindex="0" data-title="BERT" data-tip="Google 提出的双向 Transformer 编码器，常用来把一段文本编码成向量。">BERT</span>编码，在数据库中检索 <span class="m">k = 10</span> 个<span class="term" tabindex="0" data-title="k 近邻 kNN" data-tip="在向量空间中找出与查询向量距离最近的 k 个样本。">近邻</span>，得到三个分数：</p>
+        <dl class="pairs">
+          <dt><span class="m">L</span> 长度分</dt><dd>片段越长越好，长片段更有说服力。</dd>
+          <dt><span class="m">R</span> 可靠性分</dt><dd>与 k 个近邻的平均相似度。</dd>
+          <dt><span class="m">P</span> 预测分</dt><dd>近邻中 LLM 标签所占的比例。</dd>
+        </dl>
+        <h4>阶段 2：片段选择</h4>
+        <p>用<span class="term" tabindex="0" data-title="动态规划 DP" data-tip="把大问题拆成重叠的子问题，记录子问题的最优解，从而高效求全局最优。这里用来找最优的文本切分方式。">动态规划</span>选出互不重叠、覆盖全文的切分，目标是最大化各片段的平均 S：</p>
+        <div class="formula"><span class="name">S =</span>α·L + (1 − α)·R</div>
+        <p>对选中片段的 P 取平均：<span class="m">mean(P) &gt; ε</span> 判为 AI，否则判为人。每个片段附 10 个近邻例句作为证据。</p>
+
+        <div class="k">怎么衡量可解释性</div>
+        <p class="why">可解释性 = 证据能否帮人判断检测结果的对错。</p>
+        <p>从测试集抽取覆盖所有领域与生成器组合的 96 个样本，检测正确与错误各占一半。四位标注者（一名硕士生、一名博士生、两名 NLP 研究者）各自拿到不同样本。</p>
+        <figure>
+          <img src="paper2_1.png" alt="ExaGPT 用户界面：文本中的片段按预测分数着色，悬停某个片段时弹出 Top-10 相似片段及其 LLM/Human 标签和相似度，右侧是标签分布柱状图。">
+          <figcaption>Figure 3。人工评估使用的界面。片段按 P 着色：<span class="swatch sw-r">红</span> P &lt; 0.5（人写），<span class="swatch sw-g">绿</span> P = 0.5（皆非），<span class="swatch sw-b">蓝</span> P &gt; 0.5（LLM 生成）。点开一个片段，可以看到 Top-10 相似片段和它们的标签分布。</figcaption>
+        </figure>
+        <p>参与者主要通过查看相似片段示例，来判断这次检测是否正确。</p>
+      </article>
+
+    </section>
+
+    <!-- ============ C ============ -->
+    <section class="cat C" id="catC">
+      <div class="cat-head"><span class="chip C">C</span><h2>自然语言解释（rationale）</h2></div>
+
+      <article class="paper" id="c1">
+        <p class="title">Explainable Text Classification with LLMs: Enhancing Performance through Dialectical Prompting and Explanation-Guided Training</p>
+        <span class="venue">EMNLP 2025</span>
+
+        <div class="k">问题</div>
+        <ul>
+          <li>LLM 直接做分类，效果不够好。</li>
+          <li>微调小模型准确，但不可解释。</li>
+          <li>现有解释方法丢失上下文。</li>
+        </ul>
+
+        <div class="k">贡献</div>
+        <p>提出 <strong>DET</strong> 框架：用<span class="term" tabindex="0" data-title="辩证解释 Dialectical prompting" data-tip="让 LLM 对每一个可能的标签都给出“为什么可能是这个标签”的理由，正反两面都分析，而不是只为一个答案辩护。">辩证解释</span> + <span class="term" tabindex="0" data-title="EDL 证据深度学习" data-tip="Evidential Deep Learning：模型输出的不是一个概率，而是“证据量”，据此得到类别概率的分布，可以同时给出预测和不确定性。证据不足时不确定性就高。">EDL</span> 增强小模型。</p>
+
+        <div class="k">方法</div>
+        <figure>
+          <img src="paper3.png" alt="DET 框架：第一步用辩证提示让 LLM 为每个标签各生成一条解释；第二步把解释和输入一起用 EDL 微调 134M 参数的小模型，推理时由解释选择器取出预测标签对应的解释。">
+          <figcaption>Figure 2。Step 1 辩证提示，为每个标签生成解释；Step 2 解释引导训练，用这些解释和 EDL 微调小模型。</figcaption>
+        </figure>
+        <h4>Step 1：辩证提示</h4>
+        <p>输入：文本 <span class="m">X</span>、输入描述 <span class="m">X_desc</span>、标签集 <span class="m">Y</span> 和标签描述 <span class="m">Y_desc</span>。LLM 一次性输出<strong>所有</strong>标签的解释（例如同时给出 why_hate 和 why_no_hate）。</p>
+        <h4>Step 2：解释引导训练</h4>
+        <p>用证据深度学习训练一个小模型（134M 参数）。</p>
+        <h4>推理</h4>
+        <ol class="steps">
+          <li>输入文本 X，以及 Step 1 生成的所有标签的解释。</li>
+          <li>得到预测 ŷ（概率最大的类）和不确定性 u。若 u 超过一个阈值，模型拒绝给出预测。</li>
+          <li><strong>Explanation Selector</strong> 从 Step 1 的解释里取出 ŷ 对应的那一条。</li>
+          <li>最终输出：标签、解释、不确定性。</li>
+        </ol>
+
+        <div class="k">怎么衡量可解释性</div>
+        <p>论文提出新指标<strong>解释质量（Explanation Quality, EQ）</strong>：用 GPT-4o 和 Claude 3.5 Sonnet 作为<span class="term" tabindex="0" data-title="LLM-as-a-judge" data-tip="让大模型按照给定的评分标准给输出打分，用来代替或辅助人工评估。">评委</span>，按 5 分制从五个维度评估解释：</p>
+        <div class="dims">
+          <div class="dim"><b>清晰度</b><span class="en">Clarity</span><br>语言是否易懂、无歧义</div>
+          <div class="dim"><b>相关性</b><span class="en">Relevance</span><br>是否紧扣原文和分类任务</div>
+          <div class="dim"><b>完整性</b><span class="en">Completeness</span><br>是否覆盖影响判断的所有关键因素</div>
+          <div class="dim"><b>一致性</b><span class="en">Consistency</span><br>与分类结果是否一致、有无矛盾</div>
+          <div class="dim"><b>可信度</b><span class="en">Credibility</span><br>逻辑是否成立、有无事实错误</div>
+        </div>
+        <p>论文请 5 位人类专家对 120 条解释打分，LLM 的评估与专家高度一致，以此验证 EQ 指标的有效性和可靠性。</p>
+      </article>
+    </section>
+
+    <footer>10.16组会</footer>
+  </main>
+</div>
+
+<div id="tip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  var current = null;
+  function show(el) {
+    current = el;
+    var t = el.getAttribute('data-title');
+    tip.innerHTML = '';
+    if (t) { var b = document.createElement('span'); b.className = 'tt'; b.textContent = t; tip.appendChild(b); }
+    tip.appendChild(document.createTextNode(el.getAttribute('data-tip')));
+    tip.classList.add('on');
+    tip.setAttribute('aria-hidden', 'false');
+    var r = el.getBoundingClientRect();
+    var w = tip.offsetWidth, h = tip.offsetHeight, vw = document.documentElement.clientWidth;
+    var left = Math.min(Math.max(16, r.left + r.width / 2 - w / 2), vw - w - 16);
+    var top = r.bottom + 8;
+    if (top + h > window.innerHeight - 8) top = r.top - h - 8;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hide() { current = null; tip.classList.remove('on'); tip.setAttribute('aria-hidden', 'true'); }
+  document.querySelectorAll('.term').forEach(function (el) {
+    el.addEventListener('mouseenter', function () { show(el); });
+    el.addEventListener('mouseleave', hide);
+    el.addEventListener('focus', function () { show(el); });
+    el.addEventListener('blur', hide);
+    el.addEventListener('click', function (e) { e.stopPropagation(); current === el ? hide() : show(el); });
+  });
+  document.addEventListener('click', hide);
+  window.addEventListener('scroll', hide, { passive: true });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+})();
+</script>
