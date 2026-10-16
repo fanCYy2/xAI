@@ -163,7 +163,7 @@ footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--line);
       <li><a href="#taxonomy">已有分类方法</a></li>
       <li><a href="#mine">我的分类与理由</a></li>
       <li><a href="#catA"><span class="chip A" style="width:18px;height:18px;font-size:11px">A</span>特征归因</a></li>
-      <li class="sub"><a href="#a1">FMM · AAAI 2024</a></li>
+      <li class="sub"><a href="#a1">FMM · ICML 2024</a></li>
       <li><a href="#catB"><span class="chip B" style="width:18px;height:18px;font-size:11px">B</span>基于样例</a></li>
       <li class="sub"><a href="#b1">ExaGPT · ACL 2026</a></li>
       <li><a href="#catC"><span class="chip C" style="width:18px;height:18px;font-size:11px">C</span>自然语言解释</a></li>
@@ -268,8 +268,8 @@ footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--line);
       <div class="cat-head"><span class="chip A">A</span><h2>特征归因</h2></div>
 
       <article class="paper" id="a1">
-        <p class="title">Learning Robust Rationales for Model Explainability: A Guidance-Based Approach</p>
-        <span class="venue">AAAI 2024</span>
+        <p class="title">Faithfulness Measurable Masked Language Models</p>
+        <span class="venue">ICML 2024</span>
 
         <div class="k">背景</div>
         <p>NLP 里常用<span class="term" tabindex="0" data-title="重要性度量 Importance Measure (IM)" data-tip="给输入里每个 token 打一个分数，表示它对预测有多重要。梯度、积分梯度、Leave-one-out 都属于这一类。">重要性度量（IM）</span>来解释模型：给每个输入 token 打分，说明它对预测有多重要。常见的有梯度、积分梯度、<span class="term" tabindex="0" data-title="Leave-one-out" data-tip="每次删掉一个 token，看模型输出变化多少，变化越大说明这个 token 越重要。">Leave-one-out</span> 等。</p>
@@ -376,8 +376,8 @@ footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--line);
 
         <div class="k">问题</div>
         <ul>
-          <li>LLM 直接做分类，效果不够好。</li>
-          <li>微调小模型准确，但不可解释。</li>
+          <li><strong>LLM 直接做分类，效果不够好。</strong>遇到语境依赖的表达（如 “You have a strong personality” 在中美文化里褒贬不同）或多层含义的句子时，LLM 往往只抓住一种解读，而且过度自信、容易<span class="term" tabindex="0" data-title="幻觉 Hallucination" data-tip="模型生成看似合理、但与输入或事实不符的内容，例如编造原文里没有的信息。">幻觉</span>。</li>
+          <li><strong>微调小模型准但不可解释。</strong>BERT、<span class="term" tabindex="0" data-title="DeBERTa" data-tip="微软提出的 BERT 改进版，把词的内容和位置分开编码，在很多分类任务上比 BERT 更准。">DeBERTa</span> 分类准确率高，但给不出理由，也不估计<span class="term" tabindex="0" data-title="不确定性 Uncertainty" data-tip="模型对自己这次预测有多没把握。能估计不确定性的模型，可以在没把握时拒绝预测或提示人工复核。">不确定性</span>。</li>
           <li>现有解释方法丢失上下文。</li>
         </ul>
 
